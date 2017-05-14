@@ -268,7 +268,7 @@ void toggle_off(uint32_t reg_addr, uint32_t mask) {
 
 // some masks
 constexpr uint32_t COMBO_MASK = bitmask(1, 3, 5);
-uint32_t ALLBITS_MASK = []{
+constexpr uint32_t ALLBITS_MASK = []{
 	uint32_t mask = 0;
 	for(int x = 0; x < MAXBITS; x++) {
 		mask |= bitmask(x);
