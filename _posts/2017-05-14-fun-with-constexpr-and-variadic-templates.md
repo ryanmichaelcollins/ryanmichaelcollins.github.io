@@ -159,7 +159,7 @@ This is by far my favorite solution. Once you have a basic undertanding of the p
 ## C++17 and Fold Expressions
 You knew this one was coming from the title of the post. C++17 introduced [fold expressions](http://en.cppreference.com/w/cpp/language/fold). [Folds](https://en.wikipedia.org/wiki/Fold_(higher-order_function)) are a concept common in function programming and involve recursive operations on a data structure (There's more to them than that, but that's all I am going to mention here).
 
-_Side Note_: I am going to front load this section by stating that although this is a pretty neat concept, I am not a fan of the solution for this particular instance. Between C++17 not being a completed standard[\[1\]](#footnotes), compiler support being limited[\[2\]](#footnotes), and the more complicated syntax we end up with for our simple example, I think that our final program is best served with the range-based for constexpr solution [above](#cpp14-constexpr). However, with that said, fold expressions are pretty neat and I am definitely looking for more interesting situations to use them in.
+_Side Note_: I am going to front load this section by stating that although this is a pretty neat concept, I am not a fan of the solution for this particular instance. Between C++17 not being a completed standard[\[1\]](#footnotes), compiler support being limited[\[2\]](#footnotes), and the more complicated syntax we end up with for our simple example, I think that our [final program](#final-program) is best served with the range-based for constexpr solution [above](#cpp14-constexpr). However, with that said, fold expressions are pretty neat and I am definitely looking for more interesting situations to use them in.
 
 Let's break down what exactly we want to do to build our bitmask and how we might do that with a fold expression. We want to:
 
@@ -209,7 +209,7 @@ constexpr uint32_t multibit_mask(Args... args) {
 
 Even if we try to separate things onto different lines, I think this syntax makes the entire function painful to parse and way more difficult to read than it needs to be. But it works! Once again although things aren't _too_ horrible in this simple example, I think having the inline lambda vs three lines of implementation detail are a no-brainer from a readability standpoint.[[3]](#footnotes)
 
-There are cases where lambdas are really wonderful tools and can even help make things more readable, but I think that this is definitely not one of them. Even if we try to separate the structure a little, I am still not a fan:
+There are cases where lambdas are really wonderful tools and can even help make things more readable, but I think that this is definitely not one of them. Even if we try to separate the structure a little, I am still not a fan. I think it looks messy when you immediately call lambdas with parameters right after the lambda definition. Anyway, here's what we end up with:
 
 ```c++
 template<typename... Args>
@@ -222,13 +222,13 @@ constexpr uint32_t multibit_mask(Args... args) {
 
 I do however think that a constexpr lambda could be useful in turning that runtime loop used to setup our `allbits_mask` convenience variable into a compile-time constant. Check out the final program below for that one.
 
-Final note: If we made some nifty use of `auto` for our variables and function return type, `decltype` for deduced return types based on the function arguments, some `static_assert`s, and [`std::is_integral`](http://en.cppreference.com/w/cpp/types/is_integral) we probably could make the `multibit_mask` function applicable to all integral types, not just `uint32_t`. However, I think that's enough for one day.
+_Final note_: If we made some nifty use of `auto` for our variables and function return type, `decltype` for deduced return types based on the function arguments, some `static_assert`s, and [`std::is_integral`](http://en.cppreference.com/w/cpp/types/is_integral) we probably could make the `multibit_mask` function applicable to all integral types, not just `uint32_t`. However, I think that's enough for one day.
 
 Thanks for reading.
 
 
 
-Final C++14 program:
+#### Final C++14 program/snippet {#final-program}
 
 ```c++
 // C++14 version of that simple C snippet
