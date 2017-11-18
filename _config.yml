@@ -3,7 +3,7 @@ markdown: kramdown
 title: [Ryan M. Collins Website/Blog/Whatever]
 description: [My attempt at making a website.]
 permalink: /blog/:year/:month/:day/:title
-gems:
+plugins:
   - jekyll-sitemap
 kramdown:
   auto_ids: true
